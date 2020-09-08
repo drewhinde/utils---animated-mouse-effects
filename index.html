@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Animated Mouse Effects</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script>
+</head>
+<body>
+    <h1>Animated Mouse Effects</h1>
+    <!--One div to hold the small dot circle and one to hold the outer circle-->
+    <div id="dot"></div>
+    <div id="circle"></div>
+
+    <script>
+        //var to hold position and speed of movement
+        var speed = 4, _x = 0, _y = 0, endX = 0, endY = 0;
+
+        //vars to hold reference to the div elements being controlled.
+        var dot = document.getElementById("dot");
+        var circ = document.getElementById("circle");
+
+        //capture mousemovement and store in endX and endY. dot div will be made to follow this exactly
+        document.onmousemove = function(e) {
+            endX = e.pageX;
+            endY = e.pageY;
+            dot.style.top = endY - 6 + "px";
+            dot.style.left = endX - 6 + "px";
+        }
+
+        //outer ring needs to have animation for its easing.
+        function animate() {
+            requestAnimationFrame(animate);
+            _x += (endX - _x) / speed;
+            _y += (endY - _y) / speed;
+            circ.style.top = _y - 33 + "px";
+            circ.style.left = _x - 33 + "px";
+        }
+        animate();
+    </script>
+</body>
+</html>
